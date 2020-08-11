@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Context } from "../../contexts/CountriesContext";
+import "./Search.css";
 
 const Search = () => {
   const { countries, setFromCountry } = useContext(Context);
@@ -11,7 +12,7 @@ const Search = () => {
       options={countries.sort((a, b) => -b.name[0].localeCompare(a.name[0]))}
       getOptionLabel={(option) => option.name}
       onChange={(event, selectedOption) => setFromCountry(selectedOption)}
-      style={{ width: 300 }}
+      className="suggest"
       renderInput={(params) => (
         <TextField {...params} label="Where are you from?" variant="outlined" />
       )}

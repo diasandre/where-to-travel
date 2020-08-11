@@ -8,16 +8,17 @@ import {
   ContextProvider,
   contextDefaultValues,
 } from "./contexts/CountriesContext";
+import Filter from "./containers/Filter";
 
 const App = () => {
   const [values, setValues] = useState(contextDefaultValues);
 
-  const setFromCountry = selectedCountry => {
+  const setFromCountry = (selectedCountry) => {
     setValues({
       ...values,
-      fromCountry: selectedCountry
-    })
-  }
+      fromCountry: selectedCountry,
+    });
+  };
 
   const fetchData = useCallback(async () => {
     const { data } = await listAll();
@@ -34,13 +35,16 @@ const App = () => {
   return (
     <div className="app">
       <Header />
-      <ContextProvider value={{
-        ...values,
-        setFromCountry
-      }}>
+      <ContextProvider
+        value={{
+          ...values,
+          setFromCountry,
+        }}
+      >
         <div className="container">
           <Paper variant="outlined" className="card">
             <Search />
+            <Filter />
           </Paper>
         </div>
       </ContextProvider>

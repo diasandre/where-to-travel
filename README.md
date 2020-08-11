@@ -1,4 +1,3 @@
-## Where to travel
+<img src="https://github.com/diasandre/where-to-travel/blob/master/src/logo.png?raw=true"/>
 
-- primeiro search busca todos os dados de paises e ai temos um suggest com todos os paises, dividido por letra inicial
-- realizar busca e salvar em um context inicial
+## Where to travel
