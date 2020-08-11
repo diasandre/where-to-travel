@@ -1,6 +1,6 @@
 import React from "react";
 
-const STATE = {
+export const STATE = {
   LOADING: "LOADING",
   OK: "OK",
   RANDOM_LOADING: "RANDOM_LOADING"

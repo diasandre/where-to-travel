@@ -2,16 +2,19 @@ import React, { useEffect, useState, useCallback } from "react";
 import { listAll } from "./services/countryService";
 import "./App.css";
 import Header from "./containers/Header";
-import { Paper } from "@material-ui/core";
+import { Paper, CircularProgress } from "@material-ui/core";
 import Search from "./containers/Search";
 import {
   ContextProvider,
   contextDefaultValues,
+  STATE,
 } from "./contexts/CountriesContext";
 import Filter from "./containers/Filter";
 
 const App = () => {
   const [values, setValues] = useState(contextDefaultValues);
+
+  const isLoading = values.state === STATE.LOADING;
 
   const setFromCountry = (selectedCountry) => {
     setValues({
@@ -21,12 +24,13 @@ const App = () => {
   };
 
   const fetchData = useCallback(async () => {
-    const { data } = await listAll();
+    const { data = [] } = await listAll();
     setValues({
-      ...values,
+      ...contextDefaultValues,
+      state: STATE.OK,
       countries: data,
     });
-  }, [values]);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -34,17 +38,23 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header />
       <ContextProvider
         value={{
           ...values,
           setFromCountry,
         }}
       >
+        <Header />
         <div className="container">
           <Paper variant="outlined" className="card">
-            <Search />
-            <Filter />
+            {!isLoading ? (
+              <>
+                <Search />
+                <Filter />
+              </>
+            ) : (
+              <CircularProgress />
+            )}
           </Paper>
         </div>
       </ContextProvider>
