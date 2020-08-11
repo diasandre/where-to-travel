@@ -11,7 +11,7 @@ const Header = () => {
         WHERE TO TRAVEL
       </Typography>
       <Typography variant="subtitle2" color="textSecondary" align="center">
-        What`s your plans for the futute? Let`s start planning your next trip!
+        What`s your plans for the future? Let`s start planning your next trip!
       </Typography>
     </header>
   );
