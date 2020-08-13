@@ -8,10 +8,13 @@
   width: 100%;
 }
 
-.card {
-  min-width: 600px;
-  padding: 20px;
-  margin-top: 15px;
+.search-filter {
   display: flex;
   justify-content: center;
+}
+
+.card {
+  margin-top: 15px;
+  min-width: 600px;
+  padding: 20px;
 }
