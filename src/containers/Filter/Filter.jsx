@@ -37,13 +37,21 @@ const Filter = () => {
           </Tooltip>
         </ToggleButton>
 
-        <ToggleButton value="close-timezone" aria-label="close-timezone-filter">
+        <ToggleButton
+          value="close-timezone"
+          aria-label="close-timezone-filter"
+          disabled
+        >
           <Tooltip title="Countries have a similar timezone">
             <ScheduleIcon />
           </Tooltip>
         </ToggleButton>
 
-        <ToggleButton value="another-continent" aria-label="another-continent">
+        <ToggleButton
+          value="another-continent"
+          aria-label="another-continent"
+          disabled
+        >
           <Tooltip title="Country from another continent">
             <PublicIcon />
           </Tooltip>

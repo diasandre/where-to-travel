@@ -6,22 +6,20 @@ import { Paper, CircularProgress, ThemeProvider } from "@material-ui/core";
 import { ContextProvider } from "./contexts/CountriesContext";
 import Content from "./containers/Content";
 import { theme } from "./Theme";
-import AirplaneLoader from "./containers/AirplaneLoader";
-import { applyFilters } from "./helpers/filterHelper";
 import dataReducer, { INITIAL_STATE } from "./reducers/dataReducer";
 import {
   UPDATE_SELECTED_COUNTRY,
   UPDATE_FILTERS,
   STATUS_OK,
-  UPDATE_FILTERED_COUNTRIES,
-  LOADING,
+  UPDATE_AND_GO_RANDOM,
 } from "./constants/reducerActionsConstants";
-import { STATES } from "./constants/statesConstants";
+import RandomWrapper from "./containers/Random";
+import { applyFilters } from "./helpers/filterHelper";
 
 const components = {
   LOADING: CircularProgress,
   OK: Content,
-  RANDOM_LOADING: AirplaneLoader,
+  RANDOM: RandomWrapper,
 };
 
 const App = () => {
@@ -44,11 +42,6 @@ const App = () => {
   };
 
   const goToRandom = () => {
-    dispatch({
-      type: LOADING,
-      state: STATES.RANDOM_LOADING,
-    });
-
     const filteredCountries = applyFilters({
       selectedCountry,
       filters,
@@ -56,7 +49,7 @@ const App = () => {
     });
 
     dispatch({
-      type: UPDATE_FILTERED_COUNTRIES,
+      type: UPDATE_AND_GO_RANDOM,
       filteredCountries,
     });
   };

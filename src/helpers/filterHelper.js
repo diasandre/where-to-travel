@@ -5,7 +5,9 @@ export const applyFilters = ({
   filters = [],
   countries = [],
 }) => {
-  let filteredCountries = countries;
+  let filteredCountries = countries.filter(
+    (country) => country.alpha3Code !== selectedCountry.alpha3Code
+  );
 
   if (filters.includes(BORDER))
     filteredCountries = applyBorderFilter(
