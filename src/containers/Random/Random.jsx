@@ -1,21 +1,86 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../../contexts/CountriesContext";
-import AirplaneLoader from "../AirplaneLoader";
 import { getRandom } from "../../helpers/randomHelper";
+import { applyFilters } from "../../helpers/filterHelper";
+
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import { Button } from "@material-ui/core";
+
+import "leaflet/dist/leaflet.css";
+import "./Random.css";
+
+L.Icon.Default.imagePath = "/";
 
 const RandomWrapper = () => {
   const [random, setRandom] = useState(null);
-  const { filteredCountries } = useContext(Context);
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
-  const isLoading = random == null;
+  const { selectedCountry, filters, countries } = useContext(Context);
 
-  useEffect(() => {
+  const mapRef = useRef();
+  const { current = {} } = mapRef;
+  const { leafletElement: map } = current;
+
+  const updateRandom = () => {
     const value = getRandom(filteredCountries);
     setRandom(value);
-  }, [filteredCountries]);
+
+    map.setView(value.latlng, 6, {
+      duration: 2,
+    });
+  };
+
+  useEffect(() => {
+    const filteredCountries = applyFilters({
+      selectedCountry,
+      filters,
+      countries,
+    });
+
+    setFilteredCountries(filteredCountries);
+  }, [countries, filters, selectedCountry]);
 
   return (
-    <>{isLoading ? <AirplaneLoader /> : <RandomItem country={random} />}</>
+    <>
+      {selectedCountry && (
+        <>
+          <div className="random-card">
+            {random ? (
+              <>
+                <RandomItem country={random} />
+                <Button
+                  onClick={() => updateRandom()}
+                  variant="contained"
+                  color="primary"
+                >
+                  Try again
+                </Button>
+              </>
+            ) : (
+              <Button
+                onClick={() => updateRandom()}
+                variant="contained"
+                color="primary"
+              >
+                Let`s fly
+              </Button>
+            )}
+          </div>
+          <Map ref={mapRef} center={selectedCountry.latlng} zoom={3}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {selectedCountry && (
+              <Marker position={selectedCountry.latlng}>
+                <Popup>Hey, you are here 👋</Popup>
+              </Marker>
+            )}
+          </Map>
+        </>
+      )}
+    </>
   );
 };
 

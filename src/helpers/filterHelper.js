@@ -1,10 +1,12 @@
 const { BORDER, SAME_CURRENCY } = require("../constants/filterConstants");
 
 export const applyFilters = ({
-  selectedCountry,
+  selectedCountry = null,
   filters = [],
   countries = [],
 }) => {
+  if (selectedCountry == null) return [];
+
   let filteredCountries = countries.filter(
     (country) => country.alpha3Code !== selectedCountry.alpha3Code
   );

@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
-    "@material-ui/lab": "^4.0.0-alpha.49",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.49",
     "axios": "^0.19.2",
+    "leaflet": "^1.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-leaflet": "^2.7.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.0.1"
   },
   "scripts": {
