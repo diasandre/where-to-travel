@@ -1,16 +1,22 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useReducer, useCallback } from "react";
 import { listAll } from "./services/countryService";
 import "./App.css";
 import Header from "./containers/Header";
 import { Paper, CircularProgress, ThemeProvider } from "@material-ui/core";
-import {
-  ContextProvider,
-  contextDefaultValues,
-  STATE,
-} from "./contexts/CountriesContext";
+import { ContextProvider } from "./contexts/CountriesContext";
 import Content from "./containers/Content";
 import { theme } from "./Theme";
-import AirplaneLoader from "./AirplaneLoader/AirplaneLoader";
+import AirplaneLoader from "./containers/AirplaneLoader";
+import { applyFilters } from "./helpers/filterHelper";
+import dataReducer, { INITIAL_STATE } from "./reducers/dataReducer";
+import {
+  UPDATE_SELECTED_COUNTRY,
+  UPDATE_FILTERS,
+  STATUS_OK,
+  UPDATE_FILTERED_COUNTRIES,
+  LOADING,
+} from "./constants/reducerActionsConstants";
+import { STATES } from "./constants/statesConstants";
 
 const components = {
   LOADING: CircularProgress,
@@ -19,29 +25,46 @@ const components = {
 };
 
 const App = () => {
-  const [values, setValues] = useState(contextDefaultValues);
+  const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE);
 
-  const { state } = values;
+  const { actualState, selectedCountry, filters, countries } = state;
 
   const setFromCountry = (selectedCountry) => {
-    setValues({
-      ...values,
-      fromCountry: selectedCountry,
+    dispatch({
+      type: UPDATE_SELECTED_COUNTRY,
+      selectedCountry,
+    });
+  };
+
+  const setFilters = (newFilters) => {
+    dispatch({
+      type: UPDATE_FILTERS,
+      filters: newFilters,
     });
   };
 
   const goToRandom = () => {
-    setValues({
-      ...values,
-      state: STATE.RANDOM_LOADING,
+    dispatch({
+      type: LOADING,
+      state: STATES.RANDOM_LOADING,
+    });
+
+    const filteredCountries = applyFilters({
+      selectedCountry,
+      filters,
+      countries,
+    });
+
+    dispatch({
+      type: UPDATE_FILTERED_COUNTRIES,
+      filteredCountries,
     });
   };
 
   const fetchData = useCallback(async () => {
     const { data = [] } = await listAll();
-    setValues({
-      ...contextDefaultValues,
-      state: STATE.OK,
+    dispatch({
+      type: STATUS_OK,
       countries: data,
     });
   }, []);
@@ -50,16 +73,17 @@ const App = () => {
     fetchData();
   }, [fetchData]);
 
-  const Component = components[state];
+  const Component = components[actualState];
 
   return (
     <ThemeProvider theme={theme}>
       <div className="app">
         <ContextProvider
           value={{
-            ...values,
+            ...state,
             setFromCountry,
             goToRandom,
+            setFilters,
           }}
         >
           <Header />

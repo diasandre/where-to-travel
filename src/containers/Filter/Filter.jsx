@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
@@ -9,11 +9,12 @@ import BorderClearIcon from "@material-ui/icons/BorderClear";
 
 import "./Filter.css";
 import { Tooltip } from "@material-ui/core";
+import { Context } from "../../contexts/CountriesContext";
 
 const Filter = () => {
-  const [filters, setFilters] = useState(() => ["border"]);
+  const { filters, setFilters } = useContext(Context);
 
-  const handleFilters = newFilters => {
+  const handleFilters = (newFilters) => {
     if (newFilters !== filters) setFilters(newFilters);
   };
 

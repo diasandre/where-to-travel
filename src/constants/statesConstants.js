@@ -1,0 +1,6 @@
+export const STATES = {
+  LOADING: "LOADING",
+  OK: "OK",
+  RANDOM_LOADING: "RANDOM_LOADING",
+  SHOW_RANDOM: "SHOW_RANDOM",
+};
