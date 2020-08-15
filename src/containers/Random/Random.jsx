@@ -74,7 +74,12 @@ const RandomWrapper = () => {
             />
             {selectedCountry && (
               <Marker position={selectedCountry.latlng}>
-                <Popup>Hey, you are here 👋</Popup>
+                <Popup>
+                  Hey, you are here{" "}
+                  <span role="img" aria-label="hey">
+                    👋
+                  </span>
+                </Popup>
               </Marker>
             )}
           </Map>
