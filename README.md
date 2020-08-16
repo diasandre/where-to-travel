@@ -19,6 +19,11 @@ yarn install
 yarn start
 ```
 
+## Future improvements
+- Error handling
+- Add info about county
+- Booking/Trip advisor integration
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
