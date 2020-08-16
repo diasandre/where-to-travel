@@ -1,0 +1,22 @@
+.random-card {
+  position: fixed;
+  top: 10px;
+  left: 50px;
+  padding: 20px;
+  width: 300px;
+  background-color: white;
+  z-index: 999;
+}
+
+.random-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.tryagain-btn {
+  margin-left: 10px !important;
+}

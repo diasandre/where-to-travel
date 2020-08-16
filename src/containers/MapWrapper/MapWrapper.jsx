@@ -3,8 +3,7 @@ import { Context } from "../../contexts/CountriesContext";
 import { getRandom } from "../../helpers/randomHelper";
 import { applyFilters } from "../../helpers/filterHelper";
 import Map from "../Map";
-import { Button, Paper } from "@material-ui/core";
-import "./MapWrapper.css";
+import MapCard from "../MapCard";
 
 const MapWrapper = () => {
   const [random, setRandom] = useState(null);
@@ -31,40 +30,10 @@ const MapWrapper = () => {
     <>
       {selectedCountry && (
         <>
-          <Paper variant="outlined" className="random-card">
-            {random ? (
-              <>
-                <RandomItem country={random} />
-                <Button
-                  onClick={() => updateRandom()}
-                  variant="contained"
-                  color="primary"
-                >
-                  Try again
-                </Button>
-              </>
-            ) : (
-              <Button
-                onClick={() => updateRandom()}
-                variant="contained"
-                color="primary"
-              >
-                Let`s fly
-              </Button>
-            )}
-          </Paper>
+          <MapCard country={random} updateRandom={updateRandom} />
           <Map country={random} />
         </>
       )}
-    </>
-  );
-};
-
-const RandomItem = ({ country }) => {
-  return (
-    <>
-      <h3>{country.name}</h3>
-      <img src={country.flag} width="250px" alt="flag" />
     </>
   );
 };
