@@ -1,0 +1,9 @@
+.random-card {
+  position: fixed;
+  top: 10px;
+  left: 50px;
+  height: 400px;
+  width: 300px;
+  background-color: white;
+  z-index: 999;
+}

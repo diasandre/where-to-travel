@@ -7,11 +7,11 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import BorderClearIcon from "@material-ui/icons/BorderClear";
 
-import "./Filter.css";
+import "./Filters.css";
 import { Tooltip } from "@material-ui/core";
 import { Context } from "../../contexts/CountriesContext";
 
-const Filter = () => {
+const Filters = () => {
   const { filters, setFilters } = useContext(Context);
 
   const handleFilters = (newFilters) => {
@@ -61,4 +61,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default Filters;

@@ -10,10 +10,11 @@ import {
   UPDATE_FILTERS,
   STATUS_OK,
 } from "./constants/reducerActionsConstants";
-import RandomWrapper from "./containers/Random";
+import MapWrapper from "./containers/MapWrapper";
 import { Router, Switch, Route } from "react-router-dom";
-import Card from "./containers/Card";
+import SearchCard from "./containers/SearchCard";
 import { createBrowserHistory } from "history";
+import { STATES } from "./constants/statesConstants";
 
 const history = createBrowserHistory();
 
@@ -51,6 +52,7 @@ const App = () => {
       <ContextProvider
         value={{
           ...state,
+          isLoading: state.actualState === STATES.LOADING,
           setFromCountry,
           setFilters,
         }}
@@ -59,10 +61,10 @@ const App = () => {
           <Router history={history}>
             <Switch>
               <Route path="/show-map">
-                <RandomWrapper />
+                <MapWrapper />
               </Route>
               <Route path="/">
-                <Card />
+                <SearchCard />
               </Route>
             </Switch>
           </Router>
