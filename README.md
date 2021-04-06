@@ -4,7 +4,7 @@
 ## Where to travel
 Start planning your next trip!
 
-Where to travel is a react app to get a random country to travel applying some filters
+Where to travel is a react app to find random countries to travel applying some filters
 
 ## Installation
 
