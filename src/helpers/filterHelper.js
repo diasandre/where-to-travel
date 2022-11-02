@@ -33,7 +33,8 @@ const applyBorderFilter = (countryInitials, countries) => {
 };
 
 const applySameCurrencyFilter = (currencies, countries) => {
-  return countries.filter((country) =>
-    country.currencies.some((currency) => currencies.includes(currency.code))
-  );
+  return countries.filter((country) => {
+    if (country.currencies == null) return false
+    return country.currencies.some((currency) => currencies.includes(currency.code))
+  });
 };
