@@ -29,7 +29,7 @@ const MapCard = ({ country, updateRandom }) => {
               endIcon={<ReplayIcon />}
               className="tryagain-btn"
             >
-              Try again
+              Next country
             </Button>
           </div>
         </>
